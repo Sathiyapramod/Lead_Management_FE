@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import leadReducer from "./reducers/leads";
+import callReducer from "./reducers/calls";
 
 const store = configureStore({
     reducer: {
         leads: leadReducer,
+        calls: callReducer,
     },
 });
 

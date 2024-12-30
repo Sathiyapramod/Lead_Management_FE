@@ -6,10 +6,11 @@ import API from "../../services/api";
 import { toast } from "sonner";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { LeadColumns } from "../../utils/constants";
 
 export interface LeadList {
-    id?: number;
+    id: number;
     lead_name: string;
     rest_name: string;
     rest_addr1: string;
@@ -21,14 +22,21 @@ export interface LeadList {
     last_call_date?: string;
     orders_placed?: number;
     orders_done?: number;
-    created_at?: string;
-    updated_at?: string;
+    created_at: string;
+    updated_at: string;
 }
 
 function Leads(): React.ReactNode {
     const navigate = useNavigate();
-    const { id } = useParams();
-    const [leadList, setLeadList] = useState<LeadList[]>([]);
+    const [leadList, setLeadList] = useState<
+        | {
+              count: number;
+              active: number;
+              pending: number;
+              leads: LeadList[];
+          }
+        | undefined
+    >();
 
     const [offset, setOffset] = useState<number>(0);
 
@@ -54,41 +62,15 @@ function Leads(): React.ReactNode {
 
     const onClick = () => navigate("/leads/create");
 
-    const columns = [
-        {
-            id: 1,
-            name: "Lead Name",
-        },
-        {
-            id: 2,
-            name: "Restaurant",
-        },
-        {
-            id: 3,
-            name: "Created On",
-        },
-        {
-            id: 4,
-            name: "Phone",
-        },
-        {
-            id: 5,
-            name: "Frequency",
-        },
-        {
-            id: 6,
-            name: "Status",
-        },
-        {
-            id: 7,
-            name: "Actions",
-        },
-    ];
-
     return (
         <div className="p-[55px]">
             <div className="flex justify-between items-start">
-                <Card />
+                <Card
+                    title={"Leads"}
+                    count={leadList?.count ?? 0}
+                    active={leadList?.active ?? 0}
+                    pending={leadList?.pending ?? 0}
+                />
                 <div className="text-right">
                     <SearchBar onChange={() => {}} placeholder={"Search Leads"} />
                     <Button
@@ -100,7 +82,7 @@ function Leads(): React.ReactNode {
                 </div>
             </div>
             <Heading content={"Leads"} classname="my-[40px]" />
-            <Table columns={columns} data={leadList} setOffset={setOffset} />
+            <Table columns={LeadColumns} data={leadList} setOffset={setOffset} name="leads" />
         </div>
     );
 }

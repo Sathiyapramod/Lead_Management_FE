@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import endPoint from "./constants";
+import { LeadList } from "../pages/Leads/LeadsPage";
 
 class ApiError extends Error {
     constructor(message: string, public status?: number) {
@@ -25,7 +26,7 @@ class Api {
         };
         return { headers };
     }
-    private handleError(err: any) {
+    private handleError(err) {
         console.error(err);
         throw new ApiError("Error While fetching Data: " + err.message, err.response?.status);
     }
@@ -52,7 +53,7 @@ class Api {
             throw new Error("Error While fetching Data" + err);
         }
     }
-    public async createLead(body: any): Promise<AxiosResponse> {
+    public async createLead(body: LeadList): Promise<AxiosResponse> {
         try {
             const config = this.fetchConfig();
             const res = await axios.post(this.base_url + endPoint.getLeads, body, config);
@@ -121,6 +122,26 @@ class Api {
                 this.base_url + endPoint.getManagers + `?${urlParams}`,
                 config
             );
+            return res;
+        } catch (err) {
+            throw new Error("Error While fetching Data" + err);
+        }
+    }
+    public async getCallLogs(query: Record<string, string>): Promise<AxiosResponse> {
+        try {
+            const urlParams = new URLSearchParams(query).toString();
+
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.calls + `?${urlParams}`, config);
+            return res;
+        } catch (err) {
+            throw new Error("Error While fetching Data" + err);
+        }
+    }
+    async getTwilioToken() {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.callToken, config);
             return res;
         } catch (err) {
             throw new Error("Error While fetching Data" + err);

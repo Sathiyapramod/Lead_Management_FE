@@ -18,8 +18,7 @@ function StatusChip({ content, classname, tag, count }: AppChip) {
                 classname
             )}
         >
-            {content}&nbsp;{count ? "→ " : null}
-            {count}
+            {content}&nbsp; {count > -1 ? `→ ${count}` : null}
         </div>
     );
 }

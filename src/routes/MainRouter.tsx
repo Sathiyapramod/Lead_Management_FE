@@ -4,7 +4,9 @@ import MainLayout from "../layout/MainLayout/MainLayout";
 const Leads = lazy(() => import("../pages/Leads/LeadsPage"));
 const LeadForm = lazy(() => import("../pages/Leads/LeadForm"));
 const Contacts = lazy(() => import("../pages/Contacts/ContactsPage"));
+const ContactForm = lazy(() => import("../pages/Contacts/ContactForm"));
 const Dashboard = lazy(() => import("../pages/HomePage/HomePage"));
+const CallPage = lazy(() => import("../pages/My Calls/CallPage"));
 
 const MainRoutes = {
     path: "/",
@@ -29,6 +31,14 @@ const MainRoutes = {
         {
             path: "/contacts",
             element: <Contacts />,
+        },
+        {
+            path: "/contacts/:id",
+            element: <ContactForm />,
+        },
+        {
+            path: "/calls",
+            element: <CallPage />,
         },
     ],
 };

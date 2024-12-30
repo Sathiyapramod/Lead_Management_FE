@@ -1,22 +1,9 @@
 import React from "react";
 import Heading from "../../components/Heading";
 import Avatar from "../../components/Avatar";
-import { useNavigate } from "react-router-dom";
 import Chip from "../../components/Chip";
-import API from "../../services/api";
-import { toast } from "sonner";
 
-function Navbar() {
-    const navigate = useNavigate();
-    const handleLogout = async () => {
-        try {
-            await API.logout();
-            toast.success("Logged out Successfully");
-            navigate("/");
-        } catch (err) {
-            toast.error("Error");
-        }
-    };
+function Navbar(): React.ReactNode {
     return (
         <div className="hidden md:visible md:z-100 sticky top-0 md:flex flex-row items-center p-[55px] flex-wrap sm:flex-nowrap ">
             <div className="flex flex-row justify-between items-center w-full">

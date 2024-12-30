@@ -21,6 +21,7 @@ export default {
             },
         },
         fontSize: {
+            nano: "10px",
             xs: "14px",
             sm: "16px",
             medium: "20px",

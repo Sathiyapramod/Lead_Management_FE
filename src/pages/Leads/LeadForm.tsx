@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { useTypedSelector, useAppDispatch } from "../../store";
 import { fetchLeadById } from "../../store/reducers/leads";
 import { LeadList } from "./LeadsPage";
+import TextBox from "../../components/custom/InputBox/TextBox";
+import SelectBox from "../../components/custom/InputBox/SelectBox";
 
 export interface MgrList {
     id: number;
@@ -26,6 +28,7 @@ function LeadForm({ sub }: AppLeadForm) {
     const navigate = useNavigate();
     const [mgrs, setMgrs] = useState<MgrList[]>([]);
     const [formData, setFormData] = useState<LeadList>({
+        id: 0,
         lead_name: "",
         rest_name: "",
         rest_addr1: "",
@@ -34,6 +37,8 @@ function LeadForm({ sub }: AppLeadForm) {
         lead_status: false,
         mgr_id: "",
         call_freq: "weekly",
+        created_at: "",
+        updated_at: "",
     });
 
     const getManagers = async () => {
@@ -114,90 +119,44 @@ function LeadForm({ sub }: AppLeadForm) {
         <div className="lg:px-[55px] ">
             <Heading
                 content={sub === "create" ? "Create Lead" : "Edit Lead"}
-                classname="my-[40px]"
+                classname="my-[40px] max-md:px-5"
             />
             <form
                 onSubmit={handleSubmit}
-                className="mx-auto p-4 md:w-full lg:w-full lg:p-[30px] bg-white rounded-lg shadow-md md:block lg:flex lg:flex-row lg:justify-start lg:flex-wrap gap-8 relative"
+                className="mx-auto p-4 max-md:mx-5 md:w-full lg:w-full lg:p-[30px] bg-white rounded-lg shadow-md md:block lg:flex lg:flex-row lg:justify-start lg:flex-wrap gap-8 relative"
             >
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-left text-sm font-medium text-gray-70">
-                        Lead Name
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.lead_name}
-                        onChange={(e) => updateField("lead_name")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    />
-                </div>
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-left text-sm font-medium text-gray-70">
-                        Restaurant Name
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.rest_name}
-                        onChange={(e) => updateField("rest_name")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    />
-                </div>
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-left text-sm font-medium text-gray-70">
-                        Restaurant Address 1
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.rest_addr1}
-                        onChange={(e) => updateField("rest_addr1")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    />
-                </div>
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-left text-sm font-medium text-gray-70">
-                        Restaurant Address 2
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.rest_addr2}
-                        onChange={(e) => updateField("rest_addr2")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    />
-                </div>
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => updateField("phone")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    />
-                </div>
-                <div className="mb-4 lg:basis-1/5">
-                    <label className="block text-left text-sm font-medium text-gray-70">
-                        Manager ID
-                    </label>
-                    <select
-                        value={formData.mgr_id}
-                        onChange={(e) => updateField("mgr_id")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
-                        required
-                    >
-                        <option value="select" disabled>
-                            Select Manager
-                        </option>
-                        {mgrs.map((manager) => (
-                            <option value={manager.id} key={manager.id}>
-                                {manager.mgr_name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <TextBox
+                    label={"Lead Name"}
+                    value={formData.lead_name}
+                    onChange={(e) => updateField("lead_name")(e.target.value)}
+                />
+                <TextBox
+                    label={"Restaurant Name"}
+                    value={formData.rest_name}
+                    onChange={(e) => updateField("rest_name")(e.target.value)}
+                />
+                <TextBox
+                    label={"Restaurant Address 1"}
+                    value={formData.rest_addr1}
+                    onChange={(e) => updateField("rest_addr1")(e.target.value)}
+                />
+                <TextBox
+                    label={"Restaurant Address 2"}
+                    value={formData.rest_addr2}
+                    onChange={(e) => updateField("rest_addr2")(e.target.value)}
+                />
+                <TextBox
+                    label={"Phone"}
+                    value={formData.phone}
+                    onChange={(e) => updateField("phone")(e.target.value)}
+                />
+                <SelectBox
+                    value={formData.mgr_id}
+                    defaultValue="Select Manager"
+                    label="Manager"
+                    list={mgrs}
+                    onChange={(e) => updateField("mgr_id")(e.target.value)}
+                />
                 <div className="mb-4 lg:basis-1/5">
                     <label className="block text-left text-sm font-medium text-gray-70">
                         Call Frequency
@@ -205,7 +164,7 @@ function LeadForm({ sub }: AppLeadForm) {
                     <select
                         value={formData.call_freq}
                         onChange={(e) => updateField("call_freq")(e.target.value)}
-                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full"
+                        className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full max-md:w-full"
                         required
                     >
                         <option value="daily">Daily</option>
@@ -216,7 +175,7 @@ function LeadForm({ sub }: AppLeadForm) {
                     type="submit"
                     content="Submit"
                     theme="dark"
-                    classname="absolute inset bottom-[35px] right-[25px]"
+                    classname="absolute inset bottom-[35px] right-[25px] max-md:relative max-md:mt-[50px] max-md:mx-3"
                 />
             </form>
         </div>
