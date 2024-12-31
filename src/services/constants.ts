@@ -6,6 +6,7 @@ const endPoint = {
     getLeads: "/leads",
     getContacts: "/contacts",
     callToken: "/call-logs/token",
+    getOrders: "/orders",
 };
 
 export default endPoint;

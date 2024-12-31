@@ -6,22 +6,27 @@ import Button from "../../Button";
 import callIcon from "../../../assets/call.svg";
 import holdIcon from "../../../assets/end.svg";
 import { ContactList } from "../../../pages/Contacts/ContactsPage";
+import { OrdersList } from "../../../pages/Orders/OrdersPage";
+import { ManagersList } from "../../../pages/KAM/Manager";
+import { title_headings } from "../../../utils/headings";
+
+export interface BaseTable {
+    count: number;
+    active?: number;
+    pending?: number;
+    completed?: number;
+}
+
+interface FinalTable extends BaseTable {
+    leads?: LeadList[];
+    contacts?: ContactList[];
+    orders?: OrdersList[];
+    managers?: ManagersList[];
+}
 
 interface AppTable {
-    data:
-        | {
-              count: number;
-              active?: number;
-              pending?: number;
-              leads?: LeadList[];
-              completed?: number;
-              contacts?: ContactList[];
-          }
-        | undefined;
-    columns: {
-        id: number;
-        name: string;
-    }[];
+    data: FinalTable;
+    columns: Record<string, string>;
     name: string;
     setOffset: Dispatch<SetStateAction<number>>;
     callState?: string;
@@ -50,15 +55,17 @@ function Table({
                 <table className="w-full text-sm md:text-base text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            {columns.map((col) => (
-                                <th scope="col" className="px-6 py-3" key={col.id}>
-                                    {col.name}
-                                </th>
-                            ))}
+                            {Object.entries(columns).map(([key, value]) => {
+                                return (
+                                    <th scope="col" className="px-6 py-6" key={key}>
+                                        {value}
+                                    </th>
+                                );
+                            })}
                         </tr>
                     </thead>
                     <tbody>
-                        {name === "leads" && data ? (
+                        {name === title_headings.LEADS && data ? (
                             data?.leads?.map((lead) => (
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -87,6 +94,7 @@ function Table({
                                             onClick={() => handleEdit(lead.id)}
                                             theme="dark"
                                             classname="w-fit"
+                                            disabled={window.localStorage.getItem("role") !== "KAM"}
                                         />
                                     </td>
                                 </tr>
@@ -94,7 +102,7 @@ function Table({
                         ) : (
                             <></>
                         )}
-                        {name === "calls" && data ? (
+                        {name === title_headings.CALLS && data ? (
                             data?.leads?.map((lead) => (
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -138,7 +146,7 @@ function Table({
                         ) : (
                             <></>
                         )}
-                        {name === "contacts" && data ? (
+                        {name === title_headings.CONTACTS && data ? (
                             data?.contacts?.map((contact) => (
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -155,7 +163,7 @@ function Table({
                                     <td className="px-6 py-4 text-center max-md:py-0">
                                         {contact.phone}
                                     </td>
-                                    <td className="px-6 py-4">{contact.cnct_info}</td>
+                                    <td className="px-0 py-4">{contact.cnct_info}</td>
                                     <td className="px-6 py-4 text-center flex gap-[15px]">
                                         <Button
                                             content={""}
@@ -177,6 +185,58 @@ function Table({
                                             src={holdIcon}
                                         />
                                     </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <></>
+                        )}
+                        {name === title_headings.KAM && data ? (
+                            data?.managers?.map((mgr) => (
+                                <tr
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    key={mgr.id}
+                                >
+                                    <td className="px-6 py-4">{mgr.id}</td>
+
+                                    <th
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    >
+                                        {mgr.mgr_name}
+                                    </th>
+                                    <td className="px-6 py-4">{mgr.role}</td>
+                                    <td className="px-6 py-4">{mgr.phone}</td>
+                                    <td className="px-6 py-4">{mgr.leads}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <></>
+                        )}
+                        {name === title_headings.ORDERS && data ? (
+                            data?.orders?.map((odr) => (
+                                <tr
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    key={odr.id}
+                                >
+                                    <td className="px-6 py-4">{odr.id}</td>
+
+                                    <th
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    >
+                                        {odr.lead_name}
+                                    </th>
+                                    <td className="px-6 py-4">{odr.order_value}</td>
+                                    <td className="px-6 py-4">{odr.placed_on.split("T")[0]}</td>
+                                    <td className="px-6 py-4">{odr.closed_on.split("T")[0]}</td>
+                                    <td className="px-6 py-4">
+                                        {odr.isCreated && odr.isApproved ? (
+                                            <StatusChip content="Closed" tag={true} />
+                                        ) : (
+                                            <StatusChip content="Pending" tag={false} />
+                                        )}
+                                    </td>
+                                    <td className="px-6 py-4">{odr.lead_name}</td>
                                 </tr>
                             ))
                         ) : (

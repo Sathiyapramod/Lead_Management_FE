@@ -1,4 +1,5 @@
 import React, { lazy } from "react";
+import { Navigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout/MainLayout";
 
 const Leads = lazy(() => import("../pages/Leads/LeadsPage"));
@@ -7,13 +8,15 @@ const Contacts = lazy(() => import("../pages/Contacts/ContactsPage"));
 const ContactForm = lazy(() => import("../pages/Contacts/ContactForm"));
 const Dashboard = lazy(() => import("../pages/HomePage/HomePage"));
 const CallPage = lazy(() => import("../pages/My Calls/CallPage"));
+const Manager = lazy(() => import("../pages/KAM/Manager"));
+const Orders = lazy(() => import("../pages/Orders/OrdersPage"));
 
 const MainRoutes = {
     path: "/",
     element: <MainLayout />,
     children: [
         {
-            path: "/home",
+            path: "/dashboard",
             element: <Dashboard />,
         },
         {
@@ -33,12 +36,25 @@ const MainRoutes = {
             element: <Contacts />,
         },
         {
-            path: "/contacts/:id",
-            element: <ContactForm />,
+            path: "/contacts/create",
+            element: <ContactForm sub={"create"} />,
+        },
+
+        {
+            path: "/managers",
+            element: <Manager />,
+        },
+        {
+            path: "/orders",
+            element: <Orders />,
         },
         {
             path: "/calls",
             element: <CallPage />,
+        },
+        {
+            path: "/leads/edit",
+            element: <Navigate to="/leads" replace />,
         },
     ],
 };

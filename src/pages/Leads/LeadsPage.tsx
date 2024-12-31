@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Card from "../../components/Card";
 import Heading from "../../components/Heading";
 import Table from "../../components/custom/Table/Table";
-import API from "../../services/api";
-import { toast } from "sonner";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { LeadColumns } from "../../utils/constants";
+import { useAppDispatch, useTypedSelector } from "../../store";
+import { fetchLeadLists } from "../../store/reducers/leads";
+import { title_headings } from "../../utils/headings";
 
 export interface LeadList {
     id: number;
@@ -16,8 +17,8 @@ export interface LeadList {
     rest_addr1: string;
     rest_addr2: string;
     phone: string;
-    mgr_id: string;
-    lead_status: boolean;
+    mgr_id: number;
+    lead_status?: boolean;
     call_freq: string;
     last_call_date?: string;
     orders_placed?: number;
@@ -27,52 +28,37 @@ export interface LeadList {
 }
 
 function Leads(): React.ReactNode {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [leadList, setLeadList] = useState<
-        | {
-              count: number;
-              active: number;
-              pending: number;
-              leads: LeadList[];
-          }
-        | undefined
-    >();
 
+    const [searchName, setName] = useState<string>("");
     const [offset, setOffset] = useState<number>(0);
 
-    const getList = async () => {
-        try {
-            const { data, status } = await API.getLeads({
-                limit: "10",
-                offset: String(offset),
-            });
-            if (status !== 200) {
-                toast.error("Error while fetching the Leads");
-            } else {
-                setLeadList(data);
-            }
-        } catch (err) {
-            toast.error("Error");
-        }
-    };
-
     useEffect(() => {
-        getList();
-    }, [offset]);
+        dispatch(fetchLeadLists({ offset: String(offset), limit: "10", searchName }));
+    }, [offset, searchName]);
 
-    const onClick = () => navigate("/leads/create");
+    const { leadList } = useTypedSelector((state) => state.leads);
+
+    const onClick = () => {
+        if (window.localStorage.getItem("role") === "KAM") navigate("/leads/create");
+        else return;
+    };
 
     return (
         <div className="p-[55px]">
             <div className="flex justify-between items-start">
                 <Card
-                    title={"Leads"}
+                    title={title_headings.LEADS}
                     count={leadList?.count ?? 0}
                     active={leadList?.active ?? 0}
                     pending={leadList?.pending ?? 0}
                 />
                 <div className="text-right">
-                    <SearchBar onChange={() => {}} placeholder={"Search Leads"} />
+                    <SearchBar
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder={"Search Leads"}
+                    />
                     <Button
                         content="+ Create Lead"
                         theme="dark"
@@ -81,8 +67,13 @@ function Leads(): React.ReactNode {
                     />
                 </div>
             </div>
-            <Heading content={"Leads"} classname="my-[40px]" />
-            <Table columns={LeadColumns} data={leadList} setOffset={setOffset} name="leads" />
+            <Heading content={title_headings.LEADS} classname="my-[40px]" />
+            <Table
+                columns={LeadColumns}
+                data={leadList}
+                setOffset={setOffset}
+                name={title_headings.LEADS}
+            />
         </div>
     );
 }

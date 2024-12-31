@@ -1,7 +1,7 @@
 import React from "react";
 
 interface AppSearchBar {
-    onChange: () => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
 }
 

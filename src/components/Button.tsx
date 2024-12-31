@@ -11,7 +11,7 @@ interface AppButton {
     src?: string;
 }
 
-function Button({ theme, content, onClick, classname, type, src }: AppButton) {
+function Button({ theme, content, onClick, classname, type, src, disabled }: AppButton) {
     return (
         <button
             onClick={onClick}
@@ -21,6 +21,7 @@ function Button({ theme, content, onClick, classname, type, src }: AppButton) {
                 theme === "dark" ? "bg-black text-white" : "bg-white text-black",
                 classname
             )}
+            disabled={disabled}
         >
             {content !== "" ? (
                 content.toUpperCase()

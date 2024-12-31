@@ -1,9 +1,9 @@
 import React from "react";
-import { MgrList } from "../../../pages/Leads/LeadForm";
+import { ManagersList } from "../../../pages/KAM/Manager";
 
 interface AppSelectBox {
     label: string;
-    list: Partial<MgrList>[];
+    list: Partial<ManagersList>[] | Record<string, string>[];
     value: string;
     defaultValue: string;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;

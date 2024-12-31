@@ -4,29 +4,24 @@ import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import API from "../../services/api";
 import { toast } from "sonner";
-import { useTypedSelector, useAppDispatch } from "../../store";
-import { fetchLeadById } from "../../store/reducers/leads";
+import { useAppDispatch } from "../../store";
+import { resetState } from "../../store/reducers/leads";
 import { LeadList } from "./LeadsPage";
 import TextBox from "../../components/custom/InputBox/TextBox";
 import SelectBox from "../../components/custom/InputBox/SelectBox";
+import { ManagersList } from "../KAM/Manager";
+import Stepper from "../../components/custom/Stepper/Stepper";
+import ToggleButton from "../../components/custom/ToggleButton";
 
-export interface MgrList {
-    id: number;
-    mgr_name: string;
-    role: "manager" | "admin";
-    phone: string;
-}
-
-interface AppLeadForm {
+export interface AppLeadForm {
     sub: "create" | "edit";
 }
 
 function LeadForm({ sub }: AppLeadForm) {
     const dispatch = useAppDispatch();
-    const { currentLead } = useTypedSelector((state) => state.leads);
     const { id } = useParams();
     const navigate = useNavigate();
-    const [mgrs, setMgrs] = useState<MgrList[]>([]);
+    const [mgrs, setMgrs] = useState<ManagersList[]>([]);
     const [formData, setFormData] = useState<LeadList>({
         id: 0,
         lead_name: "",
@@ -47,7 +42,20 @@ function LeadForm({ sub }: AppLeadForm) {
             if (status !== 200) {
                 toast.error("Error while fetching the Leads");
             } else {
-                setMgrs(data);
+                setMgrs(data.managers);
+            }
+        } catch (err) {
+            toast.error("Error");
+        }
+    };
+
+    const getLeadById = async (id: number) => {
+        try {
+            const { data, status } = await API.getLeadById(id);
+            if (status !== 200) {
+                toast.error("Error while fetching the Leads");
+            } else {
+                setFormData(data);
             }
         } catch (err) {
             toast.error("Error");
@@ -55,20 +63,12 @@ function LeadForm({ sub }: AppLeadForm) {
     };
 
     useEffect(() => {
-        dispatch(fetchLeadById(Number(id)));
+        if (id) getLeadById(Number(id));
+    }, [id]);
+
+    useEffect(() => {
         getManagers();
     }, []);
-
-    useEffect(() => {}, []);
-
-    useEffect(
-        () =>
-            setFormData((pv) => {
-                if (sub === "edit" && currentLead) return { ...currentLead };
-                else return pv;
-            }),
-        []
-    );
 
     const updateField = (field: string) => (value: string) => {
         setFormData((prevData) => ({
@@ -87,6 +87,7 @@ function LeadForm({ sub }: AppLeadForm) {
             if (status !== 201) {
                 toast.error("Error while creating Leads");
             } else {
+                dispatch(resetState());
                 navigate("/leads");
                 toast.success("Lead Created successfully");
             }
@@ -102,6 +103,7 @@ function LeadForm({ sub }: AppLeadForm) {
                 toast.error("Error while creating Leads");
             } else {
                 navigate(-1);
+                dispatch(resetState());
                 toast.success("Lead Created successfully");
             }
         } catch (err) {
@@ -116,14 +118,15 @@ function LeadForm({ sub }: AppLeadForm) {
     };
 
     return (
-        <div className="lg:px-[55px] ">
+        <div className="lg:mx-[55px] bg-white">
             <Heading
-                content={sub === "create" ? "Create Lead" : "Edit Lead"}
-                classname="my-[40px] max-md:px-5"
+                content={`${sub === "create" ? "Create" : "Edit"} Lead`}
+                classname="px-8 pt-8 my-[40px] max-md:px-5"
             />
+            {sub === "edit" && <Stepper status={formData.lead_status} />}
             <form
                 onSubmit={handleSubmit}
-                className="mx-auto p-4 max-md:mx-5 md:w-full lg:w-full lg:p-[30px] bg-white rounded-lg shadow-md md:block lg:flex lg:flex-row lg:justify-start lg:flex-wrap gap-8 relative"
+                className="mx-auto p-4 max-md:mx-5 md:w-full lg:w-full lg:p-[30px] md:block lg:flex lg:flex-row lg:justify-start lg:flex-wrap gap-8 relative"
             >
                 <TextBox
                     label={"Lead Name"}
@@ -151,7 +154,7 @@ function LeadForm({ sub }: AppLeadForm) {
                     onChange={(e) => updateField("phone")(e.target.value)}
                 />
                 <SelectBox
-                    value={formData.mgr_id}
+                    value={formData.mgr_id.toString()}
                     defaultValue="Select Manager"
                     label="Manager"
                     list={mgrs}
@@ -171,6 +174,18 @@ function LeadForm({ sub }: AppLeadForm) {
                         <option value="weekly">Weekly</option>
                     </select>
                 </div>
+                {sub === "edit" && (
+                    <ToggleButton
+                        value={formData.lead_status}
+                        onChange={() =>
+                            setFormData((pv) => {
+                                const { lead_status } = pv;
+                                return { ...pv, lead_status: !lead_status };
+                            })
+                        }
+                        label="Lead Status"
+                    />
+                )}
                 <Button
                     type="submit"
                     content="Submit"

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import endPoint from "./constants";
 import { LeadList } from "../pages/Leads/LeadsPage";
+import { ContactList } from "../pages/Contacts/ContactsPage";
 
 class ApiError extends Error {
     constructor(message: string, public status?: number) {
@@ -26,9 +27,8 @@ class Api {
         };
         return { headers };
     }
-    private handleError(err) {
-        console.error(err);
-        throw new ApiError("Error While fetching Data: " + err.message, err.response?.status);
+    private handleError(err: unknown) {
+        throw new Error("Error While fetching Data: " + err);
     }
     private async get<T>(url: string): Promise<AxiosResponse<T> | undefined> {
         try {
@@ -50,7 +50,7 @@ class Api {
             );
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
     public async createLead(body: LeadList): Promise<AxiosResponse> {
@@ -59,7 +59,7 @@ class Api {
             const res = await axios.post(this.base_url + endPoint.getLeads, body, config);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
 
@@ -69,7 +69,7 @@ class Api {
             const res = await axios.get(this.base_url + endPoint.getLeads + `/${id}`, config);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
 
@@ -84,7 +84,7 @@ class Api {
             );
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
 
@@ -94,15 +94,25 @@ class Api {
             const res = await axios.get(this.base_url + endPoint.getContacts + `/${id}`, config);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
+    public async createContact(body: ContactList): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.post(this.base_url + endPoint.getContacts, body, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+
     public async logout(): Promise<AxiosResponse> {
         try {
             const res = await axios.post(this.base_url + endPoint.logout);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
     public async login(username: string, password: string): Promise<AxiosResponse> {
@@ -110,7 +120,7 @@ class Api {
             const res = await axios.post(this.base_url + endPoint.login, { username, password });
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
     public async getManagers(query: Record<string, string>): Promise<AxiosResponse> {
@@ -124,7 +134,7 @@ class Api {
             );
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
     public async getCallLogs(query: Record<string, string>): Promise<AxiosResponse> {
@@ -135,7 +145,7 @@ class Api {
             const res = await axios.get(this.base_url + endPoint.calls + `?${urlParams}`, config);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
         }
     }
     async getTwilioToken() {
@@ -144,7 +154,22 @@ class Api {
             const res = await axios.get(this.base_url + endPoint.callToken, config);
             return res;
         } catch (err) {
-            throw new Error("Error While fetching Data" + err);
+            this.handleError(err);
+        }
+    }
+
+    async getOrdersList(query: Record<string, string>): Promise<AxiosResponse> {
+        try {
+            const urlParams = new URLSearchParams(query).toString();
+
+            const config = this.fetchConfig();
+            const res = await axios.get(
+                this.base_url + endPoint.getOrders + `?${urlParams}`,
+                config
+            );
+            return res;
+        } catch (err) {
+            this.handleError(err);
         }
     }
 }

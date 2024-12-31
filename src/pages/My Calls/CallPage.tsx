@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import Heading from "../../components/Heading";
 import Table from "../../components/custom/Table/Table";
 import { CallSchedule } from "../../utils/constants";
+import { title_headings } from "../../utils/headings";
 
 interface TwilioCall {
     on(event: "accept", callback: () => void): void;
@@ -117,12 +118,12 @@ function CallPage(): React.ReactNode {
                     currentValue={new Date().toISOString()}
                 />
             </div>
-            <Heading content="Call Schedule" classname="my-[40px]" />
+            <Heading content={title_headings.CALLS} classname="my-[40px]" />
             <Table
-                data={callSchedule && callSchedule}
+                data={callSchedule}
                 columns={CallSchedule}
                 setOffset={setOffset}
-                name="calls"
+                name={title_headings.CALLS}
                 callState={userState}
                 handleCall={handleCall}
                 hangCall={hangCall}
