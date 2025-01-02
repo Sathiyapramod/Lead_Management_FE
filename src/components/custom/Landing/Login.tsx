@@ -18,8 +18,11 @@ function Login(): React.ReactNode {
         } else {
             e.preventDefault();
             const { data, status } = await API.login(username, password);
-            if (status !== 201) {
-                toast.error("Error while logging in");
+            if (status === 401) {
+                toast.error("Invalid Credentials");
+                navigate("/");
+            } else if (status === 500) {
+                toast.error("Error While Sign in");
                 navigate("/");
             } else {
                 const { access_token, role, userId, timezone, username } = data;
@@ -37,8 +40,8 @@ function Login(): React.ReactNode {
     };
 
     return (
-        <form className="flex flex-col items-center justify-center max-lg:absolute max-lg:bg-white max-lg:rounded-lg max-lg:z-10">
-            <Logo src={logo} width={160} height={180} />
+        <form className="flex flex-col items-center justify-center p-4">
+            <Logo src={logo} width={160} height={180} classname="max-lg:hidden" />
             <div className="m-4">
                 <label
                     htmlFor="email-address"
@@ -48,7 +51,7 @@ function Login(): React.ReactNode {
                 </label>
                 <input
                     id="email-address"
-                    className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-none focus:outline-none w-[325px]"
+                    className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-none focus:outline-none w-[325px] max-lg:w-full"
                     name="email"
                     type="email"
                     required
@@ -65,7 +68,7 @@ function Login(): React.ReactNode {
                     Password
                 </label>
                 <input
-                    className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-none focus:outline-none w-[325px]"
+                    className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-none focus:outline-none w-[325px] max-lg:w-full"
                     id="password"
                     name="password"
                     type="password"

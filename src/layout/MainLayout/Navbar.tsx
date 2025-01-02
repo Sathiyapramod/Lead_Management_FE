@@ -34,13 +34,14 @@ function Navbar(): React.ReactNode {
                     <Chip content={window.localStorage.getItem("timezone") ?? ""} />
                     <div className="text-right">
                         {/* // todo: username display on navbar */}
-                        <Heading content={"Dwayne Johnson"} classname="font-extrabold" />
+                        <Heading
+                            content={window.localStorage.getItem("username") ?? ""}
+                            classname="font-extrabold"
+                        />
                         <div className="text-light-gray text-sm">
                             {window.localStorage.getItem("role")}
                         </div>
                     </div>
-                    {/* // todo: include logout option by action (or) button */}
-                    <Avatar src={""} />
                     <Avatar
                         src={Logout}
                         classname="w-[25px] h-[25px] rounded cursor-pointer"

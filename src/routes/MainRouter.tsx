@@ -10,6 +10,7 @@ const Dashboard = lazy(() => import("../pages/HomePage/HomePage"));
 const CallPage = lazy(() => import("../pages/My Calls/CallPage"));
 const Manager = lazy(() => import("../pages/KAM/Manager"));
 const Orders = lazy(() => import("../pages/Orders/OrdersPage"));
+const OrdersForm = lazy(() => import("../pages/Orders/OrdersForm"));
 
 const MainRoutes = {
     path: "/",
@@ -47,6 +48,10 @@ const MainRoutes = {
         {
             path: "/orders",
             element: <Orders />,
+        },
+        {
+            path: "/orders/create",
+            element: <OrdersForm sub="create" />,
         },
         {
             path: "/calls",

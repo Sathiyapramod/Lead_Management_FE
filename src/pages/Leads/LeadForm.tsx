@@ -158,6 +158,7 @@ function LeadForm({ sub }: AppLeadForm) {
                     defaultValue="Select Manager"
                     label="Manager"
                     list={mgrs}
+                    listName="managers"
                     onChange={(e) => updateField("mgr_id")(e.target.value)}
                 />
                 <div className="mb-4 lg:basis-1/5">

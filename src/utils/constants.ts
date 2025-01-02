@@ -61,9 +61,10 @@ export const CallSchedule = {
     "2": "Restaurant",
     "3": "Orders Placed",
     "4": "Orders Done",
-    "5": "Phone",
-    "6": "Call Frequency",
-    "7": "Actions",
+    "5": "Last Call Made",
+    "6": "Phone",
+    "7": "Call Frequency",
+    "8": "Actions",
 };
 export const ContactList = {
     "1": "Contact Name",

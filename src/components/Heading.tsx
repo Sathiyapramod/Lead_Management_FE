@@ -7,10 +7,13 @@ interface AppHeading {
     onClick?: () => void;
 }
 
-function Heading({ content, classname, onClick }: AppHeading) {
+function Heading({ content, classname, onClick }: AppHeading): React.ReactNode {
     return (
         <div
-            className={twJoin("text-black text-medium font-extrabold w-fit", classname ?? "")}
+            className={twJoin(
+                "text-black text-medium font-extrabold w-fit capitalize",
+                classname ?? ""
+            )}
             onClick={onClick}
         >
             {content}

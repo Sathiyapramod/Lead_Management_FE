@@ -20,7 +20,7 @@ function LandingPage(): React.ReactNode {
     return (
         <div className="flex flex-row justify-center items-center mx-auto border h-screen">
             <div
-                className="flex-1 h-full transition-all duration-600 ease-in max-lg:opacity-80"
+                className="flex-1 h-full transition-all duration-600 ease-in max-lg:opacity-80 opacity-85"
                 style={{
                     backgroundImage: `url(${slideShow[currIdx]})`,
                     backgroundSize: "cover",
@@ -28,7 +28,7 @@ function LandingPage(): React.ReactNode {
                     objectFit: "cover",
                 }}
             ></div>
-            <div className="flex-1">
+            <div className="flex-1 max-lg:absolute max-lg:bg-white max-lg:rounded-lg max-lg:z-10">
                 <Login />
             </div>
         </div>

@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import endPoint from "./constants";
 import { LeadList } from "../pages/Leads/LeadsPage";
 import { ContactList } from "../pages/Contacts/ContactsPage";
+import { OrdersList } from "../pages/Orders/OrdersPage";
 
 class ApiError extends Error {
     constructor(message: string, public status?: number) {
@@ -165,6 +166,37 @@ class Api {
             const config = this.fetchConfig();
             const res = await axios.get(
                 this.base_url + endPoint.getOrders + `?${urlParams}`,
+                config
+            );
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async createOrder(body: Partial<OrdersList>): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.post(this.base_url + endPoint.getOrders, body, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async updateOrder(
+        isApproved: boolean,
+        id: number,
+        lead_id: number,
+        approved_on: string
+    ): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.patch(
+                this.base_url + endPoint.getOrders + `/${id}`,
+                {
+                    isApproved,
+                    lead_id,
+                    approved_on,
+                },
                 config
             );
             return res;

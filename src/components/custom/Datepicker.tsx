@@ -1,11 +1,12 @@
 import React from "react";
 
 interface AppDatePicker {
+    label: string;
     onClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
     currentValue: string | number | readonly string[] | undefined;
 }
 
-function DatePicker({ onClick, currentValue }: AppDatePicker) {
+function DatePicker({ onClick, currentValue, label }: AppDatePicker) {
     return (
         <div className="flex justify-center items-center">
             <div className="shadow-md rounded-lg w-fit max-w-xs p-8 bg-white max-md:w-full">
@@ -13,7 +14,7 @@ function DatePicker({ onClick, currentValue }: AppDatePicker) {
                     htmlFor="date-picker"
                     className="block max-md:hidden  text-left text-sm font-medium text-gray-70 pb-4"
                 >
-                    Select Call Date
+                    {label}
                 </label>
                 <input
                     id="date-picker"

@@ -11,15 +11,17 @@ import { OrderColumns } from "../../utils/constants";
 import { title_headings } from "../../utils/headings";
 
 export interface OrdersList {
-    id: number;
+    id?: number;
     lead_id: number;
     lead_name?: string;
     order_value: number;
-    placed_on: Date;
-    closed_on: Date;
-    approved_on: Date;
+    placed_on: string;
+    closed_on: string;
+    approved_on: string;
     isApproved: boolean;
     isCreated: boolean;
+    created_at?: string;
+    updated_at?: string;
 }
 
 interface Orders extends BaseTable {
@@ -63,6 +65,22 @@ function OrdersPage(): React.ReactNode {
         else return;
     };
 
+    const handleApproval = async (isApproved: boolean, id: number, lead_id: number) => {
+        try {
+            const approved_on = new Date().toISOString();
+            const { status } = await API.updateOrder(!isApproved, id, lead_id, approved_on);
+            if (status !== 200) {
+                toast.error("Error while fetching the Leads");
+            } else {
+                getList();
+                toast.success(`Order No.${id} updated Successfully`);
+            }
+        } catch (err) {
+            console.log(err);
+            toast.error("Error");
+        }
+    };
+
     return (
         <div className="p-[55px]">
             <div className="flex justify-between items-start">
@@ -87,6 +105,7 @@ function OrdersPage(): React.ReactNode {
                 data={ordersList}
                 setOffset={setOffset}
                 name={title_headings.ORDERS}
+                handleApproval={handleApproval}
             />
         </div>
     );

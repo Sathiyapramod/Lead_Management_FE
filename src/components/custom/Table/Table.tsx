@@ -9,6 +9,8 @@ import { ContactList } from "../../../pages/Contacts/ContactsPage";
 import { OrdersList } from "../../../pages/Orders/OrdersPage";
 import { ManagersList } from "../../../pages/KAM/Manager";
 import { title_headings } from "../../../utils/headings";
+import ToggleButton from "../ToggleButton";
+import formatAmt from "../../../helpers/formatAmount";
 
 export interface BaseTable {
     count: number;
@@ -32,6 +34,7 @@ interface AppTable {
     callState?: string;
     handleCall?: (phone: string) => void;
     hangCall?: () => void;
+    handleApproval?: (isApproved: boolean, id: number, lead_id: number) => void;
 }
 
 function Table({
@@ -42,6 +45,7 @@ function Table({
     callState,
     handleCall,
     hangCall,
+    handleApproval,
 }: AppTable): React.ReactNode {
     const navigate = useNavigate();
 
@@ -117,7 +121,9 @@ function Table({
                                     <td className="px-6 py-4">{lead.rest_name}</td>
                                     <td className="px-6 py-4">{lead.orders_placed}</td>
                                     <td className="px-6 py-4">{lead.orders_done}</td>
-
+                                    <td className="px-6 py-4">
+                                        {lead.last_call_date?.split("T")[0]}
+                                    </td>
                                     <td className="px-6 py-4 text-center">{lead.phone}</td>
                                     <td className="px-6 py-4 uppercase">{lead.call_freq}</td>
                                     <td className="px-6 py-4 text-center flex gap-[15px]">
@@ -226,15 +232,22 @@ function Table({
                                     >
                                         {odr.lead_name}
                                     </th>
-                                    <td className="px-6 py-4">{odr.order_value}</td>
+                                    <td className="px-6 py-4">{formatAmt(odr.order_value)}</td>
                                     <td className="px-6 py-4">{odr.placed_on.split("T")[0]}</td>
                                     <td className="px-6 py-4">{odr.closed_on.split("T")[0]}</td>
                                     <td className="px-6 py-4">
-                                        {odr.isCreated && odr.isApproved ? (
-                                            <StatusChip content="Closed" tag={true} />
-                                        ) : (
-                                            <StatusChip content="Pending" tag={false} />
-                                        )}
+                                        <ToggleButton
+                                            label=""
+                                            value={odr.isApproved}
+                                            onChange={() => {
+                                                if (handleApproval)
+                                                    handleApproval(
+                                                        odr.isApproved,
+                                                        Number(odr.id),
+                                                        odr.lead_id
+                                                    );
+                                            }}
+                                        />
                                     </td>
                                     <td className="px-6 py-4">{odr.lead_name}</td>
                                 </tr>
