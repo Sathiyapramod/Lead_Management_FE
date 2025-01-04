@@ -13,7 +13,7 @@ import { Contact_Roles } from "../../utils/constants";
 function ContactForm({ sub }: AppLeadForm): React.ReactNode {
     const navigate = useNavigate();
 
-    const { leadList } = useTypedSelector((state) => state.leads);
+    const { leadList } = useTypedSelector((state) => state.analytics);
     const { currentContact } = useTypedSelector((state) => state.contacts);
 
     const [formData, setFormData] = useState<ContactList>({

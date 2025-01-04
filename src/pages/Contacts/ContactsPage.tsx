@@ -25,7 +25,7 @@ interface Contacts extends BaseTable {
     contacts: ContactList[];
 }
 
-function Contacts() {
+function Contacts(): React.ReactNode {
     const navigate = useNavigate();
     const [contactList, setContactsList] = useState<Contacts>({
         count: 0,
@@ -66,6 +66,8 @@ function Contacts() {
                     count={contactList?.count ?? 0}
                     active={contactList?.active ?? 0}
                     pending={contactList?.pending ?? 0}
+                    activeTag="Active"
+                    pendingTag="Pending"
                 />
                 <div className="text-right">
                     <SearchBar onChange={() => {}} placeholder={"Search Contacts"} />

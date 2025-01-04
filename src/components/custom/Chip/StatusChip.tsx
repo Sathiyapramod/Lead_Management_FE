@@ -8,7 +8,7 @@ interface AppChip {
     count?: number;
 }
 
-function StatusChip({ content, classname, tag, count }: AppChip) {
+function StatusChip({ content, classname, tag, count }: AppChip): React.ReactNode {
     return (
         <div
             className={twJoin(
@@ -18,7 +18,7 @@ function StatusChip({ content, classname, tag, count }: AppChip) {
                 classname
             )}
         >
-            {content}&nbsp; {count > -1 ? `→ ${count}` : null}
+            {content}&nbsp; {count && count > -1 ? `→ ${count}` : null}
         </div>
     );
 }

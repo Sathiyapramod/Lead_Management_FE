@@ -44,7 +44,7 @@ export const callSlice = createSlice({
     name: "leads",
     initialState,
     reducers: {
-        resetState() {
+        resetCalls() {
             return initialState;
         },
     },
@@ -63,6 +63,6 @@ export const callSlice = createSlice({
     },
 });
 
-export const { resetState } = callSlice.actions;
+export const { resetCalls } = callSlice.actions;
 
 export default callSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { LeadList } from "../../../pages/Leads/LeadsPage";
-import StatusChip from "../../StatusChip";
+import StatusChip from "../Chip/StatusChip";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Button";
 import callIcon from "../../../assets/call.svg";
@@ -82,7 +82,9 @@ function Table({
                                         {lead.lead_name}
                                     </th>
                                     <td className="px-6 py-4">{lead.rest_name}</td>
-                                    <td className="px-6 py-4">{lead.created_at.split("T")[0]}</td>
+                                    <td className="px-6 py-4">
+                                        {lead.created_at?.split("T")[0] ?? 0}
+                                    </td>
                                     <td className="px-6 py-4 text-center">{lead.phone}</td>
                                     <td className="px-6 py-4 uppercase">{lead.call_freq}</td>
                                     <td className="px-6 py-4">
@@ -122,7 +124,7 @@ function Table({
                                     <td className="px-6 py-4">{lead.orders_placed}</td>
                                     <td className="px-6 py-4">{lead.orders_done}</td>
                                     <td className="px-6 py-4">
-                                        {lead.last_call_date?.split("T")[0]}
+                                        {lead.last_call_date?.split("T")[0] ?? ""}
                                     </td>
                                     <td className="px-6 py-4 text-center">{lead.phone}</td>
                                     <td className="px-6 py-4 uppercase">{lead.call_freq}</td>
@@ -218,7 +220,7 @@ function Table({
                         ) : (
                             <></>
                         )}
-                        {name === title_headings.ORDERS && data ? (
+                        {name === title_headings.ORDERS && data?.orders ? (
                             data?.orders?.map((odr) => (
                                 <tr
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -233,8 +235,12 @@ function Table({
                                         {odr.lead_name}
                                     </th>
                                     <td className="px-6 py-4">{formatAmt(odr.order_value)}</td>
-                                    <td className="px-6 py-4">{odr.placed_on.split("T")[0]}</td>
-                                    <td className="px-6 py-4">{odr.closed_on.split("T")[0]}</td>
+                                    <td className="px-6 py-4">
+                                        {odr.placed_on ? odr.placed_on.split("T")[0] : ""}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {odr.closed_on ? odr.closed_on.split("T")[0] : "YTA"}
+                                    </td>
                                     <td className="px-6 py-4">
                                         <ToggleButton
                                             label=""

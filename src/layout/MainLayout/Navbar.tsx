@@ -6,9 +6,16 @@ import Logout from "../../assets/logout.svg";
 import API from "../../services/api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { resetMgrs } from "../../store/reducers/managers";
+import { resetLeads } from "../../store/reducers/leads";
+import { resetCalls } from "../../store/reducers/calls";
+import { resetContacts } from "../../store/reducers/contacts";
+import { resetPerf } from "../../store/reducers/performance";
 
 function Navbar(): React.ReactNode {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const handleLogout = async () => {
         try {
             const { status } = await API.logout();
@@ -17,7 +24,11 @@ function Navbar(): React.ReactNode {
                 return;
             } else {
                 window.localStorage.clear();
-                // todo : reset state in redux
+                dispatch(resetCalls());
+                dispatch(resetContacts());
+                dispatch(resetLeads());
+                dispatch(resetPerf());
+                dispatch(resetMgrs());
                 navigate("/");
                 toast.success("Logged Out successfully");
                 return;

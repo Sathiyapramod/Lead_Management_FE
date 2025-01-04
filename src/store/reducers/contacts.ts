@@ -47,7 +47,7 @@ export const contactSlice = createSlice({
     name: "contacts",
     initialState,
     reducers: {
-        resetState() {
+        resetContacts() {
             return initialState;
         },
     },
@@ -66,6 +66,6 @@ export const contactSlice = createSlice({
     },
 });
 
-export const { resetState } = contactSlice.actions;
+export const { resetContacts } = contactSlice.actions;
 
 export default contactSlice.reducer;

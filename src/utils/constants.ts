@@ -7,6 +7,12 @@ export interface MenuOptions {
     path: string;
 }
 
+export const PERF_HEADINGS: Record<string, string> = {
+    Outstanding: "3Days",
+    Satisfactory: "7Days",
+    Moderate: "14Days",
+};
+
 export const MENU_OPTIONS: MenuOptions[] = [
     {
         id: 1,
@@ -99,4 +105,12 @@ export const Contact_Roles = {
     Procurement: "procurement",
     Sales: "sales",
     Chef: "chef",
+};
+
+export const Stats_Table = {
+    "1": "Restaurant Name",
+    "2": "Lead Name",
+    "3": "Order Value",
+    "4": "Placed On",
+    "5": "Approved On",
 };

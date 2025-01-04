@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Heading from "../../components/Heading";
 import { OrdersList } from "./OrdersPage";
-import { LeadList } from "../Leads/LeadsPage";
 import API from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -9,10 +8,11 @@ import TextBox from "../../components/custom/InputBox/TextBox";
 import DatePicker from "../../components/custom/Datepicker";
 import SelectBox from "../../components/custom/InputBox/SelectBox";
 import Button from "../../components/Button";
+import { useTypedSelector } from "../../store";
 
 function OrdersForm({ sub }: Record<string, string>): React.ReactNode {
+    const { leadList } = useTypedSelector((state) => state.analytics);
     const navigate = useNavigate();
-    const [leads, setLeads] = useState<LeadList[]>([]);
     const [currentOrder, setCurrentOrder] = useState<OrdersList>({
         id: 0,
         lead_id: 0,
@@ -59,23 +59,6 @@ function OrdersForm({ sub }: Record<string, string>): React.ReactNode {
         else return;
     };
 
-    const getLeads = async () => {
-        try {
-            const { data, status } = await API.getLeads({});
-            if (status !== 200) {
-                toast.error("Error while fetching the Leads");
-            } else {
-                setLeads(data.leads);
-            }
-        } catch (err) {
-            toast.error("Error");
-        }
-    };
-
-    useEffect(() => {
-        getLeads();
-    }, []);
-
     return (
         <div className="lg:mx-[55px] bg-white">
             <Heading
@@ -101,7 +84,7 @@ function OrdersForm({ sub }: Record<string, string>): React.ReactNode {
                     defaultValue="Select Leads"
                     label="Leads"
                     listName="leads"
-                    leads={leads}
+                    leads={leadList.leads}
                     onChange={(e) => updateField("lead_id")(e.target.value)}
                 />
                 <TextBox

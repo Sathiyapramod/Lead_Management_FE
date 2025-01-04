@@ -4,6 +4,7 @@ import leadReducer from "./reducers/leads";
 import callReducer from "./reducers/calls";
 import contactReducer from "./reducers/contacts";
 import managerReducer from "./reducers/managers";
+import perfReducer from "./reducers/performance";
 
 const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
         calls: callReducer,
         contacts: contactReducer,
         managers: managerReducer,
+        analytics: perfReducer,
     },
 });
 

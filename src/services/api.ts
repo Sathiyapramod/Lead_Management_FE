@@ -204,6 +204,52 @@ class Api {
             this.handleError(err);
         }
     }
+
+    async getFullLeads(): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.getFullLeads, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async getFullOrders(): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.getFullOrders, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async getFullMgrs(): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.getFullMgrs, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async getStats(): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.getStats, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
+    async getReport(): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.get(this.base_url + endPoint.getReport, config);
+            return res;
+        } catch (err) {
+            this.handleError(err);
+        }
+    }
 }
 
 const API = new Api();

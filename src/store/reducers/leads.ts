@@ -43,7 +43,7 @@ export const leadSlice = createSlice({
     name: "leads",
     initialState,
     reducers: {
-        resetState() {
+        resetLeads() {
             return initialState;
         },
     },
@@ -62,6 +62,6 @@ export const leadSlice = createSlice({
     },
 });
 
-export const { resetState } = leadSlice.actions;
+export const { resetLeads } = leadSlice.actions;
 
 export default leadSlice.reducer;

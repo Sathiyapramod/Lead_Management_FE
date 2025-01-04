@@ -4,14 +4,13 @@ import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import API from "../../services/api";
 import { toast } from "sonner";
-import { useAppDispatch } from "../../store";
-import { resetState } from "../../store/reducers/leads";
+import { useAppDispatch, useTypedSelector } from "../../store";
 import { LeadList } from "./LeadsPage";
 import TextBox from "../../components/custom/InputBox/TextBox";
 import SelectBox from "../../components/custom/InputBox/SelectBox";
-import { ManagersList } from "../KAM/Manager";
 import Stepper from "../../components/custom/Stepper/Stepper";
 import ToggleButton from "../../components/custom/ToggleButton";
+import { resetLeads } from "../../store/reducers/leads";
 
 export interface AppLeadForm {
     sub: "create" | "edit";
@@ -21,7 +20,6 @@ function LeadForm({ sub }: AppLeadForm) {
     const dispatch = useAppDispatch();
     const { id } = useParams();
     const navigate = useNavigate();
-    const [mgrs, setMgrs] = useState<ManagersList[]>([]);
     const [formData, setFormData] = useState<LeadList>({
         id: 0,
         lead_name: "",
@@ -36,18 +34,7 @@ function LeadForm({ sub }: AppLeadForm) {
         updated_at: "",
     });
 
-    const getManagers = async () => {
-        try {
-            const { data, status } = await API.getManagers({});
-            if (status !== 200) {
-                toast.error("Error while fetching the Leads");
-            } else {
-                setMgrs(data.managers);
-            }
-        } catch (err) {
-            toast.error("Error");
-        }
-    };
+    const { managers } = useTypedSelector((state) => state.analytics);
 
     const getLeadById = async (id: number) => {
         try {
@@ -66,10 +53,6 @@ function LeadForm({ sub }: AppLeadForm) {
         if (id) getLeadById(Number(id));
     }, [id]);
 
-    useEffect(() => {
-        getManagers();
-    }, []);
-
     const updateField = (field: string) => (value: string) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -87,7 +70,7 @@ function LeadForm({ sub }: AppLeadForm) {
             if (status !== 201) {
                 toast.error("Error while creating Leads");
             } else {
-                dispatch(resetState());
+                dispatch(resetLeads());
                 navigate("/leads");
                 toast.success("Lead Created successfully");
             }
@@ -157,7 +140,7 @@ function LeadForm({ sub }: AppLeadForm) {
                     value={formData.mgr_id.toString()}
                     defaultValue="Select Manager"
                     label="Manager"
-                    list={mgrs}
+                    list={managers.managers}
                     listName="managers"
                     onChange={(e) => updateField("mgr_id")(e.target.value)}
                 />

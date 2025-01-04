@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { LeadColumns } from "../../utils/constants";
 import { useAppDispatch, useTypedSelector } from "../../store";
 import { fetchLeadLists } from "../../store/reducers/leads";
+import { fetchLeads } from "../../store/reducers/performance";
 import { title_headings } from "../../utils/headings";
 
 export interface LeadList {
@@ -36,9 +37,11 @@ function Leads(): React.ReactNode {
 
     useEffect(() => {
         dispatch(fetchLeadLists({ offset: String(offset), limit: "10", searchName }));
+        dispatch(fetchLeads());
     }, [offset, searchName]);
 
     const { leadList } = useTypedSelector((state) => state.leads);
+    const { analytics } = useTypedSelector((state) => state);
 
     const onClick = () => {
         if (window.localStorage.getItem("role") === "KAM") navigate("/leads/create");
@@ -50,9 +53,11 @@ function Leads(): React.ReactNode {
             <div className="flex justify-between items-start">
                 <Card
                     title={title_headings.LEADS}
-                    count={leadList?.count ?? 0}
-                    active={leadList?.active ?? 0}
-                    pending={leadList?.pending ?? 0}
+                    count={analytics.leadList?.count ?? 0}
+                    active={analytics.leadList?.active ?? 0}
+                    pending={analytics.leadList?.pending ?? 0}
+                    activeTag="Active"
+                    pendingTag="Pending"
                 />
                 <div className="text-right">
                     <SearchBar

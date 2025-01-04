@@ -42,7 +42,7 @@ export const managerSlice = createSlice({
     name: "managers",
     initialState,
     reducers: {
-        resetState() {
+        resetMgrs() {
             return initialState;
         },
     },
@@ -60,6 +60,6 @@ export const managerSlice = createSlice({
         });
     },
 });
-export const { resetState } = managerSlice.actions;
+export const { resetMgrs } = managerSlice.actions;
 
 export default managerSlice.reducer;

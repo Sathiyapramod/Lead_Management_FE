@@ -62,6 +62,8 @@ function Manager(): React.ReactNode {
                     count={mgrs?.count ?? 0}
                     active={mgrs?.active ?? 0}
                     pending={mgrs?.pending ?? 0}
+                    activeTag="Active"
+                    pendingTag="Pending"
                 />
                 <div className="text-right">
                     <SearchBar

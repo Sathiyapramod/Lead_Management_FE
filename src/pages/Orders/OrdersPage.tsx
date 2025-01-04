@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { BaseTable } from "../../components/custom/Table/Table";
 import { OrderColumns } from "../../utils/constants";
 import { title_headings } from "../../utils/headings";
+import { fetchOrders } from "../../store/reducers/performance";
+import { useAppDispatch, useTypedSelector } from "../../store";
 
 export interface OrdersList {
     id?: number;
@@ -29,6 +31,8 @@ interface Orders extends BaseTable {
 }
 function OrdersPage(): React.ReactNode {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { analytics } = useTypedSelector((state) => state);
     const [ordersList, setOrdersList] = useState<Orders>({
         count: 0,
         active: 0,
@@ -58,6 +62,7 @@ function OrdersPage(): React.ReactNode {
 
     useEffect(() => {
         getList();
+        dispatch(fetchOrders());
     }, [offset]);
 
     const onClick = () => {
@@ -86,9 +91,12 @@ function OrdersPage(): React.ReactNode {
             <div className="flex justify-between items-start">
                 <Card
                     title={title_headings.ORDERS}
-                    count={ordersList?.count ?? 0}
-                    active={ordersList?.active ?? 0}
-                    pending={ordersList?.pending ?? 0}
+                    count={analytics.orders?.count ?? 0}
+                    active={analytics.orders?.active ?? 0}
+                    pending={analytics.orders?.pending ?? 0}
+                    activeTag="Active"
+                    pendingTag="Pending"
+                    classname="w-[400px]"
                 />
                 <div className="text-right">
                     <Button
