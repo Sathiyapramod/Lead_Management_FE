@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
 import { Device } from "@twilio/voice-sdk";
+import { useEffect,useState } from "react";
+import { toast } from "sonner";
+
 import API from "../services/api";
 
 function useTwilio() {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { MENU_OPTIONS, MenuOptions } from "../../../utils/constants";
 import { useNavigate } from "react-router-dom";
+
+import { MENU_OPTIONS, MenuOptions } from "../../../utils/constants";
 import MenuLink from "./MenuLink";
 
 function Sidemenu(): React.ReactNode {

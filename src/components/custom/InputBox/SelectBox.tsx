@@ -1,6 +1,7 @@
 import React from "react";
-import { ManagersList } from "../../../pages/KAM/Manager";
-import { LeadList } from "../../../pages/Leads/LeadsPage";
+
+import { ManagersList } from "../../../pages/KAM/Manager.types";
+import { LeadList } from "../../../pages/Leads/Leads.types";
 
 interface AppSelectBox {
     label: string;

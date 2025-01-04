@@ -1,6 +1,7 @@
 import React from "react";
-import StatusChip from "./custom/Chip/StatusChip";
 import { twMerge } from "tailwind-merge";
+
+import StatusChip from "./custom/Chip/StatusChip";
 
 interface AppCard {
     title: string;

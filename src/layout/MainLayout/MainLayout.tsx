@@ -1,8 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+
+import Breadcrumbs from "../../components/Breadcrumbs";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import Breadcrumbs from "../../components/Breadcrumbs";
 
 function MainLayout(): React.ReactNode {
     return (

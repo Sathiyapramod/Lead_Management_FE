@@ -12,13 +12,14 @@ function CustomChip({ content, classname, tag, count }: AppChip): React.ReactNod
     return (
         <div
             className={twJoin(
-                `w-fit h-auto rounded-lg text-center px-6 ${
+                `w-fit h-auto rounded-lg text-center px-6 max-lg:px-1 max-md:w-fit  font-bold text-[12px] p-[8px] max-md:p-0.5 ${
                     tag ? "bg-green text-darkgreen" : "bg-orange text-darkorange"
-                } text-center font-bold text-[12px] p-[8px]`,
+                } `,
                 classname
             )}
         >
-            {content}&nbsp;→&nbsp;${count}
+            <span className="visible inline max-[425px]:hidden ">{content}&nbsp;→&nbsp;</span>$
+            {count}
         </div>
     );
 }

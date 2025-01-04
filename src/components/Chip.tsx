@@ -1,5 +1,6 @@
 import React from "react";
 import { twJoin } from "tailwind-merge";
+
 import location from "../assets/location.svg";
 
 interface AppChip {

@@ -1,9 +1,9 @@
 import React from "react";
 import Sidemenu from "../../components/custom/Sidebar/Sidemenu";
 
-function Sidebar() {
+function Sidebar(): React.ReactNode {
     return (
-        <div className="hidden md:block w-[252px] mt-[132px]">
+        <div className="visible max-lg:hidden w-[252px] mt-[132px]">
             <Sidemenu />
         </div>
     );

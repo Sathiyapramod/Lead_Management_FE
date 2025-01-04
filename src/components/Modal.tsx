@@ -1,6 +1,7 @@
 import React from "react";
-import Heading from "./Heading";
+
 import Button from "./Button";
+import Heading from "./Heading";
 
 interface AppModal {
     isOpen: boolean;

@@ -15,7 +15,7 @@ function Breadcrumbs() {
         calls: "Calls",
     };
     return (
-        <nav className="px-[55px]">
+        <nav className="px-[55px] max-sm:p-[15px]">
             <ol className="flex space-x-2">
                 <li>
                     <Link to="/dashboard" className="text-blue-500 hover:underline">

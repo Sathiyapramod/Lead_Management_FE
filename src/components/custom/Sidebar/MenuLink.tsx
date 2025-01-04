@@ -1,4 +1,5 @@
 import React from "react";
+
 import { MenuOptions } from "../../utils/constants";
 
 interface AppMenuLinks {

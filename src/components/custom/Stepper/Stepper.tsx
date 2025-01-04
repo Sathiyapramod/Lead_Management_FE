@@ -1,6 +1,7 @@
 import React from "react";
-import waiting from "../../../assets/waiting.svg";
+
 import created from "../../../assets/created.svg";
+import waiting from "../../../assets/waiting.svg";
 
 interface AppStepper {
     status?: boolean;

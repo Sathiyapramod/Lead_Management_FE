@@ -1,16 +1,17 @@
 import React from "react";
-import Heading from "../../components/Heading";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
+import Logout from "../../assets/logout.svg";
 import Avatar from "../../components/Avatar";
 import Chip from "../../components/Chip";
-import Logout from "../../assets/logout.svg";
+import Heading from "../../components/Heading";
 import API from "../../services/api";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store";
-import { resetMgrs } from "../../store/reducers/managers";
-import { resetLeads } from "../../store/reducers/leads";
 import { resetCalls } from "../../store/reducers/calls";
 import { resetContacts } from "../../store/reducers/contacts";
+import { resetLeads } from "../../store/reducers/leads";
+import { resetMgrs } from "../../store/reducers/managers";
 import { resetPerf } from "../../store/reducers/performance";
 
 function Navbar(): React.ReactNode {
@@ -38,13 +39,18 @@ function Navbar(): React.ReactNode {
         }
     };
     return (
-        <div className="hidden md:visible md:z-100 sticky top-0 md:flex flex-row items-center p-[55px] flex-wrap sm:flex-nowrap ">
+        <div className="visible md:z-100 sticky top-0 md:flex flex-row items-center p-[55px] max-sm:p-[15px] flex-wrap sm:flex-nowrap">
             <div className="flex flex-row justify-between items-center w-full">
-                <Heading content={"Priorities for the Day !!!! "} />
-                <div className="hidden md:flex flex-row items-center gap-[35px]">
-                    <Chip content={window.localStorage.getItem("timezone") ?? ""} />
-                    <div className="text-right">
-                        {/* // todo: username display on navbar */}
+                <Heading
+                    content={"Priorities for the Day !!!!"}
+                    classname="visible block max-[640px]:hidden w-full"
+                />
+                <div className="flex flex-row items-center gap-[35px] w-full max-[640px]:justify-between justify-end">
+                    <Chip
+                        content={window.localStorage.getItem("timezone") ?? ""}
+                        classname="visible max-[640px]:hidden"
+                    />
+                    <div className="text-right max-sm:text-left">
                         <Heading
                             content={window.localStorage.getItem("username") ?? ""}
                             classname="font-extrabold"

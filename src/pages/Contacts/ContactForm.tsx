@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import Button from "../../components/Button";
+import TextBox from "../../components/custom/InputBox/TextBox";
 import Heading from "../../components/Heading";
 import API from "../../services/api";
-import { toast } from "sonner";
 import { useTypedSelector } from "../../store";
-import TextBox from "../../components/custom/InputBox/TextBox";
-import { AppLeadForm } from "../Leads/LeadForm";
-import { ContactList } from "./ContactsPage";
 import { Contact_Roles } from "../../utils/constants";
+import { AppLeadForm } from "../Leads/LeadForm";
+import { ContactsList } from "./Contacts.types";
 
 function ContactForm({ sub }: AppLeadForm): React.ReactNode {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ function ContactForm({ sub }: AppLeadForm): React.ReactNode {
     const { leadList } = useTypedSelector((state) => state.analytics);
     const { currentContact } = useTypedSelector((state) => state.contacts);
 
-    const [formData, setFormData] = useState<ContactList>({
+    const [formData, setFormData] = useState<ContactsList>({
         lead_id: 0,
         cnct_name: "",
         cnct_info: "",

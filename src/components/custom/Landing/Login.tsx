@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Button from "../../Button";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import API from "../../../services/api";
-import Logo from "../../Logo";
+import { toast } from "sonner";
+
 import logo from "../../../assets/logo.svg";
+import API from "../../../services/api";
+import Button from "../../Button";
+import Logo from "../../Logo";
 
 function Login(): React.ReactNode {
     const navigate = useNavigate();
