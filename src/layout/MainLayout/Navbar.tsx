@@ -17,6 +17,7 @@ import { resetPerf } from "../../store/reducers/performance";
 function Navbar(): React.ReactNode {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
     const handleLogout = async () => {
         try {
             const { status } = await API.logout();

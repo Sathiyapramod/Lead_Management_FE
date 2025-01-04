@@ -14,7 +14,7 @@ function Sidemenu(): React.ReactNode {
     };
 
     return (
-        <ul className="ps-[49px]">
+        <ul className="ps-[49px] max-lg:ps-[10px] max-lg:flex max-lg:w-full max-lg:justify-between">
             {/* // todo - icons setup for mobile screen */}
             {MENU_OPTIONS.map((menu) => {
                 return (

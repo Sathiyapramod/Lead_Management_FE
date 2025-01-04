@@ -55,7 +55,7 @@ const MainRoutes = {
             element: <OrdersForm sub="create" />,
         },
         {
-            path: "/orders/edit",
+            path: "/orders/edit/:id",
             element: <OrdersForm sub="edit" />,
         },
         {
@@ -65,6 +65,10 @@ const MainRoutes = {
         {
             path: "/leads/edit",
             element: <Navigate to="/leads" replace />,
+        },
+        {
+            path: "/orders/edit",
+            element: <Navigate to="/orders" replace />,
         },
     ],
 };

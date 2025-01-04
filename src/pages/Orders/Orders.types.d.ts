@@ -4,6 +4,7 @@ export interface OrdersList {
   lead_name: string;
   order_value: number;
   placed_on: string;
+  mgr_name?:string;
   closed_on: string;
   approved_on: string;
   isApproved: boolean;

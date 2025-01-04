@@ -12,8 +12,10 @@ function MenuLink({ menu, isSelected, onSelect }: AppMenuLinks) {
     return (
         <li
             onClick={onSelect}
-            className={`font-light text-medium mb-[30px] transition-colors transition-border duration-500 ${
-                isSelected ? "text-menu-colors border-menu-colors border-l-8 ps-3" : "text-black"
+            className={`font-light text-medium mb-[30px] transition-colors transition-border duration-500 max-lg:text-sm ${
+                isSelected
+                    ? "text-menu-colors border-menu-colors lg:border-l-8 ps-3 max-[1024px]:border-b-4"
+                    : "text-black"
             } cursor-pointer`}
         >
             {menu.caption}
