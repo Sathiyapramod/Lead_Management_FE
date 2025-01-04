@@ -55,7 +55,7 @@ function Navbar(): React.ReactNode {
                             content={window.localStorage.getItem("username") ?? ""}
                             classname="font-extrabold"
                         />
-                        <div className="text-light-gray text-sm">
+                        <div className="text-light-gray text-sm capitalize">
                             {window.localStorage.getItem("role")}
                         </div>
                     </div>

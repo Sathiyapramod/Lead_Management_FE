@@ -15,7 +15,7 @@ import { title_headings } from '../../utils/headings';
 import { OrdersList } from './Orders.types';
 
 interface Orders extends BaseTable {
-  orders: Partial<OrdersList>[];
+  orders: OrdersList[];
 }
 
 function OrdersPage(): React.ReactNode {
@@ -34,9 +34,25 @@ function OrdersPage(): React.ReactNode {
 
   const getList = async () => {
     try {
+      let lead_name :string | null=""
+      switch(window.localStorage.getItem("role")){
+        case "KAM":
+          lead_name = "";
+          break;
+        case "contact":
+          lead_name = window.localStorage.getItem("username");
+          break;
+        case "lead":
+            lead_name = window.localStorage.getItem("username");
+            break;
+        default: 
+          lead_name = "";
+          break;
+      }
       const { data, status } = await API.getOrdersList({
         limit: '10',
         offset: String(offset),
+        lead_name : lead_name ?? ""
       });
       if (status !== 200) {
         toast.error('Error while fetching the Leads');
@@ -57,7 +73,9 @@ function OrdersPage(): React.ReactNode {
   const onClick = () => {
     if (window.localStorage.getItem('role') === 'KAM')
       navigate('/orders/create');
-    else return;
+    else {
+      toast.warning("Creating Access only to the KAM")
+    };
   };
 
   const handleApproval = async (
@@ -99,10 +117,11 @@ function OrdersPage(): React.ReactNode {
         />
         <div className="text-right">
           <Button
-            content={'+ Create Order'}
+            content={`Create Order`}
             theme="dark"
             classname="rounded-lg mt-[15px]"
             onClick={onClick}
+            disabled={false}
           />
         </div>
       </div>

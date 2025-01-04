@@ -18,7 +18,7 @@ function StatusChip({ content, classname, tag, count }: AppChip): React.ReactNod
                 classname
             )}
         >
-            {content}&nbsp; {count && count > -1 ? `→ ${count}` : null}
+            {content}&nbsp; {count && count >= 0? `→ ${count}` : "-"}
         </div>
     );
 }

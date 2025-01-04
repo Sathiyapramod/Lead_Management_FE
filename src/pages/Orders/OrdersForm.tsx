@@ -11,7 +11,11 @@ import API from '../../services/api';
 import { useTypedSelector } from '../../store';
 import { OrdersList } from './Orders.types';
 
-function OrdersForm({ sub }: Record<string, string>): React.ReactNode {
+export interface AppOrderForm {
+  sub: 'create' | 'edit';
+}
+
+function OrdersForm({ sub }: AppOrderForm): React.ReactNode {
   const { leadList } = useTypedSelector((state) => state.analytics);
   const navigate = useNavigate();
   const [currentOrder, setCurrentOrder] = useState<OrdersList>({

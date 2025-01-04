@@ -1,5 +1,5 @@
 export interface OrdersList {
-  id: number;
+  id?: number;
   lead_id: number;
   lead_name: string;
   order_value: number;

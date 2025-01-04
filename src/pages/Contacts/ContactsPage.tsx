@@ -4,7 +4,8 @@ import { toast } from 'sonner';
 
 import Button from '../../components/Button';
 import Card from '../../components/Card';
-import Table, { BaseTable } from '../../components/custom/Table/Table';
+import Table from '../../components/custom/Table/Table';
+import { BaseTable } from '../../components/custom/Table/Tables.types';
 import Heading from '../../components/Heading';
 import SearchBar from '../../components/SearchBar';
 import API from '../../services/api';

@@ -55,6 +55,10 @@ const MainRoutes = {
             element: <OrdersForm sub="create" />,
         },
         {
+            path: "/orders/edit",
+            element: <OrdersForm sub="edit" />,
+        },
+        {
             path: "/calls",
             element: <CallPage />,
         },

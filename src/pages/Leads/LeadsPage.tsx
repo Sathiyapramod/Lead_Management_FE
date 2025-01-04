@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import Button from '../../components/Button';
 import Card from '../../components/Card';
@@ -32,7 +33,9 @@ function Leads(): React.ReactNode {
   const onClick = () => {
     if (window.localStorage.getItem('role') === 'KAM')
       navigate('/leads/create');
-    else return;
+     else {
+      toast.warning("Creating Access only to the KAM")
+    };;
   };
 
   return (

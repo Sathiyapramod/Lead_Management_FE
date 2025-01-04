@@ -34,8 +34,8 @@ function Card({
                 <div className="text-[45px]">{count ?? 0}</div>
             </div>
             <div className="flex flex-row justify-between items-center">
-                <StatusChip content={activeTag} tag={true} count={active ?? 0} />
-                <StatusChip content={pendingTag} tag={false} count={pending ?? 0} />
+                <StatusChip content={activeTag} tag={true} count={active} />
+                <StatusChip content={pendingTag} tag={false} count={pending} />
             </div>
         </div>
     );
