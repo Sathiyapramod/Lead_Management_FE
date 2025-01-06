@@ -1,8 +1,6 @@
 import React from "react";
 
 import { ContactsList } from "../../../pages/Contacts/Contacts.types";
-import callIcon from "../../../assets/call.svg";
-import holdIcon from "../../../assets/end.svg";
 import Button from "../../Button";
 
 function ContactsTable({
@@ -30,23 +28,21 @@ function ContactsTable({
             <td className="px-0 py-4">{contact.cnct_info}</td>
             <td className="px-6 py-4 text-center flex gap-[15px]">
                 <Button
-                    content={""}
+                    content={"Call"}
                     onClick={() => {
                         if (handleCall) handleCall(contact?.phone);
                     }}
                     theme="light"
-                    classname="w-fit bg-darkgreen border-none"
-                    src={callIcon}
+                    classname="w-fit text-white bg-darkgreen border-none"
                 />
                 <Button
-                    content={""}
+                    content={"End"}
                     onClick={() => {
                         if (hangCall) hangCall();
                     }}
                     theme="dark"
                     classname="w-fit bg-red-500 border-none"
                     disabled={callState === "On Call" ? true : false}
-                    src={holdIcon}
                 />
             </td>
         </tr>

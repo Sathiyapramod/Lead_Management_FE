@@ -56,7 +56,7 @@ function CallPage(): React.ReactNode {
                     setUserState("Waiting");
                     toast.warning("Microphone access is denied. Please enable it for this website");
                 }
-                setCall(Call);
+
                 device?.on("registered", () => {
                     console.log(device.edge);
                 });
@@ -71,25 +71,48 @@ function CallPage(): React.ReactNode {
         }
     };
 
+    const storeLog = async (callSid: string) => {
+        try {
+            console.log(callSid);
+        } catch (err) {
+            console.log("Error", err);
+        }
+    };
+
     const handleCall = async (phone: string) => {
         const params = { To: phone };
         if (!callDevice) {
             console.error("Call device is not initialized.");
             return;
         }
-        await callDevice.connect({
-            params,
-            rtcConstraints: {
-                audio: true,
-            },
-        });
+        await callDevice
+            .connect({
+                params,
+                rtcConstraints: {
+                    audio: true,
+                },
+            })
+            .then((call) => {
+                call.on("accept", async () => {
+                    const sid = call?.parameters.CallSid;
+                    storeLog(sid);
+                    console.log("On Call");
+                    setCall(Call);
+                });
+                call.on("disconnect", async () => {
+                    console.log("☎️ call disconnected ⏹️");
+                });
+                call.on("reject", async () => {
+                    console.log("🛑 Call got rejected 🚧");
+                });
+            });
     };
     const hangCall = async () => {
+        Call?.emit("disconnect");
         if (!Call) {
-            console.error("Call device is not initialized.");
-            return;
-        }
-        callDevice?.disconnectAll();
+            throw new Error("Call device is not initialized.");
+        } else Call?.disconnect();
+        setCall(null);
     };
 
     useEffect(() => {

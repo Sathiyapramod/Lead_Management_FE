@@ -1,8 +1,6 @@
 import React from "react";
 
 import { LeadList } from "../../../pages/Leads/Leads.types";
-import callIcon from "../../../assets/call.svg";
-import holdIcon from "../../../assets/end.svg";
 import Button from "../../Button";
 
 function CallsTable({
@@ -34,23 +32,23 @@ function CallsTable({
                 <td className="px-6 py-4 uppercase">{lead.call_freq}</td>
                 <td className="px-6 py-4 text-center flex gap-[15px]">
                     <Button
-                        content={""}
+                        content={"Call"}
                         onClick={() => {
                             if (handleCall) handleCall(lead?.phone);
                         }}
                         theme="light"
-                        classname="w-fit bg-darkgreen border-none"
-                        src={callIcon}
+                        classname="w-fit bg-darkgreen text-white border-none"
+                        // src={callIcon}
                     />
                     <Button
-                        content={""}
+                        content={"End"}
                         onClick={() => {
                             if (hangCall) hangCall();
                         }}
                         theme="dark"
-                        classname="w-fit bg-red-500 border-none"
+                        classname="py-0 bg-red-500 text-white border-none"
                         disabled={callState === "On Call" ? true : false}
-                        src={holdIcon}
+                        // src={holdIcon}
                     />
                 </td>
             </tr>

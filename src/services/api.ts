@@ -267,6 +267,19 @@ class Api {
             throw new Error("Error While fetching Data: " + err);
         }
     }
+    async storeCallLog(callSid: string): Promise<AxiosResponse> {
+        try {
+            const urlParams = new URLSearchParams({ callSid }).toString();
+            const config = this.fetchConfig();
+            const res = await axios.post(
+                this.base_url + endPoint.storeCallLogs + `?${urlParams}`,
+                config
+            );
+            return res;
+        } catch (err) {
+            throw new Error("Error While fetching Data: " + err);
+        }
+    }
 }
 
 const API = new Api();
