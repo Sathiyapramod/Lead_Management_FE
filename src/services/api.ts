@@ -47,6 +47,19 @@ class Api {
             throw new Error("Error While fetching Data: " + err);
         }
     }
+    public async updateLead(body: Record<string, boolean>, id: number): Promise<AxiosResponse> {
+        try {
+            const config = this.fetchConfig();
+            const res = await axios.patch(
+                this.base_url + endPoint.getLeads + `/${id}`,
+                body,
+                config
+            );
+            return res;
+        } catch (err) {
+            throw new Error("Error While fetching Data: " + err);
+        }
+    }
 
     public async getLeadById(id: number): Promise<AxiosResponse> {
         try {

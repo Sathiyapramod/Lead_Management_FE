@@ -80,15 +80,21 @@ function LeadForm({ sub }: AppLeadForm) {
         }
     };
 
-    const updateLead = async () => {
+    const updateLead = async (id: number) => {
         try {
-            const { status } = await API.createLead(formData);
+            const lead_status = formData.lead_status;
+            const { status } = await API.updateLead(
+                {
+                    lead_status: !lead_status,
+                },
+                id
+            );
             if (status !== 200) {
                 toast.error("Error while creating Leads");
             } else {
                 navigate(-1);
                 dispatch(resetLeads());
-                toast.success("Lead Created successfully");
+                toast.success("Lead Updated successfully");
             }
         } catch (err) {
             toast.error("Error");
@@ -98,7 +104,7 @@ function LeadForm({ sub }: AppLeadForm) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (sub === "create") createLead();
-        else updateLead();
+        else updateLead(Number(id));
     };
 
     return (

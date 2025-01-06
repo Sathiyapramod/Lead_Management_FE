@@ -47,7 +47,8 @@ function OrdersForm({ sub }: AppOrderForm): React.ReactNode {
                 toast.error("Error while fetching the Leads");
                 navigate(-1);
             } else {
-                //
+                navigate("/orders");
+                toast.success("Order Created Successfully");
             }
         } catch (err) {
             toast.error("Error");
