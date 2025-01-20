@@ -7,7 +7,7 @@ interface AppAvatar {
     onClick?: () => void;
 }
 
-function Avatar({ src, classname, onClick = () => {} }: AppAvatar) {
+function Avatar({ src, classname, onClick = () => {} }: AppAvatar): React.ReactNode {
     return src === "" ? (
         <div className="rounded-full bg-slate-400 w-[50px] h-[50px] opacity-50"></div>
     ) : (

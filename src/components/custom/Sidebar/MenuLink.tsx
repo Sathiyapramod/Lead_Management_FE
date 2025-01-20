@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MenuOptions } from "../../utils/constants";
+import { MenuOptions } from "../../../utils/constants";
 
 interface AppMenuLinks {
     menu: MenuOptions;
@@ -8,7 +8,7 @@ interface AppMenuLinks {
     onSelect: () => void;
 }
 
-function MenuLink({ menu, isSelected, onSelect }: AppMenuLinks) {
+function MenuLink({ menu, isSelected, onSelect }: AppMenuLinks): React.ReactNode {
     return (
         <li
             onClick={onSelect}

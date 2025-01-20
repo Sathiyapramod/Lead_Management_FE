@@ -7,7 +7,7 @@ interface AppStepper {
     status?: boolean;
 }
 
-function Stepper({ status }: AppStepper) {
+function Stepper({ status }: AppStepper): React.ReactNode {
     return (
         <div className="mx-auto w-fit flex justify-center items-center mb-8">
             <div className="flex flex-col items-center gap-[10px] relative">

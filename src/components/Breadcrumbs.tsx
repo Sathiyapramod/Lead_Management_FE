@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function Breadcrumbs() {
+function Breadcrumbs(): React.ReactNode {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter(Boolean);
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import Login from "./Login";
 
-function Landing() {
+function Landing(): React.ReactNode {
     return <Login />;
 }
 

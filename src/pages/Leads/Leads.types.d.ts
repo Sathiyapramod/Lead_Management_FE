@@ -6,7 +6,7 @@ export interface LeadList {
     rest_addr2: string;
     phone: string;
     mgr_id: number;
-    lead_status?: boolean;
+    lead_status: boolean;
     call_freq: "weekly" | "daily";
     last_call_date?: string;
     orders_placed?: number;

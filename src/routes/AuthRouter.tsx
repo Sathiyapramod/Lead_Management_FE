@@ -1,10 +1,10 @@
 import React from "react";
 
-import LandingPage from "../pages/LandingPage/LandingPage";
+const Landing = React.lazy(() => import("../pages/LandingPage/LandingPage"));
 
 const AuthRoutes = {
     path: "/",
-    element: <LandingPage />,
+    element: <Landing />,
 };
 
 export default AuthRoutes;

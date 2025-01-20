@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 import MainLayout from "../layout/MainLayout/MainLayout";
 
-const Leads = lazy(() => import("../pages/Leads/LeadsPage"));
+const Leads = React.lazy(() => import("../pages/Leads/LeadsPage"));
 const LeadForm = lazy(() => import("../pages/Leads/LeadForm"));
 const Contacts = lazy(() => import("../pages/Contacts/ContactsPage"));
 const ContactForm = lazy(() => import("../pages/Contacts/ContactForm"));

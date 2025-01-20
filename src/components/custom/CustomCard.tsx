@@ -10,7 +10,7 @@ interface AppCustomCallCard {
     pending: number;
 }
 
-function CustomCard({ total, completed, pending }: AppCustomCallCard) {
+function CustomCard({ total, completed, pending }: AppCustomCallCard): React.ReactNode {
     return (
         <div className="lg:w-[427px] md:w-full h-[177px] rounded-lg bg-white shadow-sm p-[30px] cursor-pointer max-md:w-full">
             <div className="flex flex-row justify-between items-start mb-[20px] w-full">
