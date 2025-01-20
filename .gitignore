@@ -31,3 +31,5 @@ dist-ssr
 .codegpt
 
 *.bundle
+
+sonar-project.properties

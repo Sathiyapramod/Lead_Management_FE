@@ -15,12 +15,15 @@ interface AppSelectBox {
 function SelectBox({ label, value, list, onChange, defaultValue, listName, leads }: AppSelectBox) {
     return (
         <div className="mb-4 lg:basis-1/5">
-            <label className="block text-left text-sm font-medium text-gray-70">{label}</label>
+            <label className="block text-left text-sm font-medium text-gray-70" htmlFor={label}>
+                {label}
+            </label>
             <select
                 value={value}
                 onChange={onChange}
                 className="mt-1 block p-2 border-b-[0.5px] border-light-black focus:border-blue-300 focus:outline-none max-lg:w-[325px] min-[320px]:w-full max-md:w-full"
                 disabled={false}
+                id={label}
                 required
             >
                 <option value="select">{defaultValue}</option>
