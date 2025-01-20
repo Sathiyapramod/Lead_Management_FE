@@ -9,8 +9,10 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "format": "prettier --ignore-path .gitignore --write '**/*.+(js|ts|json)'",
-        "test": "jest --watchAll",
-        "cov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
+        "test": "jest",
+        "cov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'",
+        "prepare": "husky",
+        "commitlint": "commitlint --edit"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.5.0",
@@ -30,6 +32,7 @@
         "@babel/preset-env": "^7.26.0",
         "@babel/preset-react": "^7.26.3",
         "@babel/preset-typescript": "^7.26.0",
+        "@commitlint/types": "^19.5.0",
         "@eslint/js": "^9.17.0",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.2.0",
@@ -48,6 +51,7 @@
         "eslint-plugin-react-refresh": "^0.4.16",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "globals": "^15.14.0",
+        "husky": "^9.1.7",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
@@ -58,5 +62,10 @@
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
         "vite": "^6.0.5"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "sh .husky/pre-commit"
+        }
     }
 }
