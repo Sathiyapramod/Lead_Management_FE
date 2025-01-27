@@ -57,8 +57,8 @@ function OrdersForm({ sub }: AppOrderForm): React.ReactNode {
 
     const getOrderById = async (id: number) => {
         try {
-            const { data } = await API.getOrderById(id);
-            if (!data) {
+            const { data, status } = await API.getOrderById(id);
+            if (status !== 200) {
                 toast.error("Failed to fetch data");
             } else {
                 setCurrentOrder(data);
@@ -84,13 +84,13 @@ function OrdersForm({ sub }: AppOrderForm): React.ReactNode {
     const updateOrder = async (id: string) => {
         try {
             const isApproved = false;
-            const { data } = await API.updateOrder({
+            const { data, status } = await API.updateOrder({
                 id: Number(id),
                 isApproved,
                 lead_id: currentOrder.lead_id,
                 closed_on: currentOrder.closed_on,
             });
-            if (!data) {
+            if (status !== 200) {
                 toast.error("Failed to fetch data");
             } else {
                 navigate("/orders");

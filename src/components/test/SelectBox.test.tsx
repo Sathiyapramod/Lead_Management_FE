@@ -113,4 +113,19 @@ describe("TextBox Component", () => {
             />
         );
     });
+
+    test("snapshot select box", () => {
+        const { asFragment } = render(
+            <SelectBox
+                label="Select Manager"
+                value="1"
+                defaultValue="Select a manager"
+                listName="managers"
+                list={mockManagersList}
+                onChange={() => {}}
+            />
+        );
+
+        expect(asFragment).toMatchSnapshot();
+    });
 });

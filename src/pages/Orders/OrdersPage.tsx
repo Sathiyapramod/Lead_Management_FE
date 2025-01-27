@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -32,7 +32,7 @@ function OrdersPage(): React.ReactNode {
 
     const [offset, setOffset] = useState<number>(0);
 
-    const getList = async () => {
+    const getList = useCallback(async () => {
         try {
             let lead_name: string | null = "";
             switch (window.localStorage.getItem("role")) {
@@ -63,12 +63,12 @@ function OrdersPage(): React.ReactNode {
             console.log(err);
             toast.error("Error");
         }
-    };
+    }, [offset]);
 
     useEffect(() => {
         getList();
         dispatch(fetchOrders());
-    }, [offset]);
+    }, [getList, dispatch]);
 
     const onClick = () => {
         if (window.localStorage.getItem("role") === "KAM") navigate("/orders/create");

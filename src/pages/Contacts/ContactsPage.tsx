@@ -1,5 +1,5 @@
 import { Device } from "@twilio/voice-sdk";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -36,7 +36,7 @@ function Contacts(): React.ReactNode {
     const [callDevice, setDevice] = useState<Device | undefined>(undefined);
     const [userState, setUserState] = useState<string>("Idle");
 
-    const getList = async () => {
+    const getList = useCallback(async () => {
         try {
             const { data, status } = await API.getContacts({
                 limit: "10",
@@ -51,11 +51,11 @@ function Contacts(): React.ReactNode {
         } catch (err) {
             toast.error("Error");
         }
-    };
+    }, [offset, searchName]);
 
     useEffect(() => {
         getList();
-    }, [offset, searchName]);
+    }, [getList]);
 
     const onClick = () => navigate("/contacts/create");
 

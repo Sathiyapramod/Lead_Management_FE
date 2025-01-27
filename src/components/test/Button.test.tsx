@@ -5,6 +5,8 @@ import Button from "../Button";
 describe("Button Component", () => {
     // test on button text content
     test("renders button with text content", () => {
+        // ** Behavior Testing
+        // ** Smoke testing
         render(<Button theme="light" content="Click Me" />);
         const buttonElem = screen.getByRole("button", { name: /click me/i });
         expect(buttonElem).toBeInTheDocument();
@@ -45,5 +47,10 @@ describe("Button Component", () => {
 
         rerender(<Button theme="light" content="Light Theme" />);
         expect(buttonElement).toHaveClass("bg-white text-black");
+    });
+
+    test("match snapshot", () => {
+        const { asFragment } = render(<Button theme="light" content="Snapshot test" />);
+        expect(asFragment).toMatchSnapshot();
     });
 });
