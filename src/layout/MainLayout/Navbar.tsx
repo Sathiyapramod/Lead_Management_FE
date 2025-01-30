@@ -40,7 +40,7 @@ function Navbar(): React.ReactNode {
         }
     };
     return (
-        <div className="visible md:z-100 sticky top-0 md:flex flex-row items-center p-[55px] max-sm:p-[15px] flex-wrap sm:flex-nowrap">
+        <div className="visible md:z-100 sticky top-0 md:flex flex-row items-center px-[55px] py-[30px] max-sm:p-[15px] flex-wrap sm:flex-nowrap">
             <div className="flex flex-row justify-between items-center w-full">
                 <Heading
                     content={"Priorities for the Day !!!!"}

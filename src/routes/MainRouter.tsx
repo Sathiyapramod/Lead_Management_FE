@@ -12,6 +12,7 @@ const CallPage = lazy(() => import("../pages/My Calls/CallPage"));
 const Manager = lazy(() => import("../pages/KAM/Manager"));
 const Orders = lazy(() => import("../pages/Orders/OrdersPage"));
 const OrdersForm = lazy(() => import("../pages/Orders/OrdersForm"));
+const AboutPage = lazy(() => import("../pages/About/About"));
 
 const MainRoutes = {
     path: "/",
@@ -69,6 +70,14 @@ const MainRoutes = {
         {
             path: "/orders/edit",
             element: <Navigate to="/orders" replace />,
+        },
+        {
+            path: "/about",
+            element: <AboutPage />,
+        },
+        {
+            path: "/*",
+            element: <Navigate to="/about" replace />,
         },
     ],
 };

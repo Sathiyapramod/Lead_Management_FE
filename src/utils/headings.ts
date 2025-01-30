@@ -5,4 +5,5 @@ export const title_headings = {
     LEADS: "Leads",
     CONTACTS: "Contacts",
     ORDERS: "Orders",
+    ABOUT: "About",
 };
