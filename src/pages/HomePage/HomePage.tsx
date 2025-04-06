@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { useAppDispatch,useTypedSelector } from '../../store';
+import { useAppDispatch, useTypedSelector } from "../../store";
 import {
   fetchLeads,
   fetchMgrs,
   fetchOrders,
   fetchReport,
   fetchStats,
-} from '../../store/reducers/performance';
-import Dashboard from './Dashboard';
-import MonthlyOrders from './Monthly';
-import WeeklyOrders from './Weekly';
+} from "../../store/reducers/performance";
+import Dashboard from "./Dashboard";
+import MonthlyOrders from "./Monthly";
+import WeeklyOrders from "./Weekly";
 
 function HomePage(): React.ReactNode {
   const dispatch = useAppDispatch();

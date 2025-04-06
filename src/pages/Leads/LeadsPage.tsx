@@ -1,28 +1,28 @@
-import React, { useEffect,useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-import Button from '../../components/Button';
-import Card from '../../components/Card';
-import Table from '../../components/custom/Table/Table';
-import Heading from '../../components/Heading';
-import SearchBar from '../../components/SearchBar';
-import { useAppDispatch, useTypedSelector } from '../../store';
-import { fetchLeadLists } from '../../store/reducers/leads';
-import { fetchLeads } from '../../store/reducers/performance';
-import { LeadColumns } from '../../utils/constants';
-import { title_headings } from '../../utils/headings';
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import Table from "../../components/custom/Table/Table";
+import Heading from "../../components/Heading";
+import SearchBar from "../../components/SearchBar";
+import { useAppDispatch, useTypedSelector } from "../../store";
+import { fetchLeadLists } from "../../store/reducers/leads";
+import { fetchLeads } from "../../store/reducers/performance";
+import { LeadColumns } from "../../config/constants";
+import { title_headings } from "../../config/headings";
 
 function Leads(): React.ReactNode {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [searchName, setName] = useState<string>('');
+  const [searchName, setName] = useState<string>("");
   const [offset, setOffset] = useState<number>(0);
 
   useEffect(() => {
     dispatch(
-      fetchLeadLists({ offset: String(offset), limit: '10', searchName }),
+      fetchLeadLists({ offset: String(offset), limit: "10", searchName })
     );
     dispatch(fetchLeads());
   }, [offset, searchName]);
@@ -31,11 +31,11 @@ function Leads(): React.ReactNode {
   const { analytics } = useTypedSelector((state) => state);
 
   const onClick = () => {
-    if (window.localStorage.getItem('role') === 'KAM')
-      navigate('/leads/create');
-     else {
-      toast.warning("Creating Access only to the KAM")
-    };;
+    if (window.localStorage.getItem("role") === "KAM")
+      navigate("/leads/create");
+    else {
+      toast.warning("Creating Access only to the KAM");
+    }
   };
 
   return (
@@ -52,7 +52,7 @@ function Leads(): React.ReactNode {
         <div className="text-right">
           <SearchBar
             onChange={(e) => setName(e.target.value)}
-            placeholder={'Search Leads'}
+            placeholder={"Search Leads"}
           />
           <Button
             content="+ Create Lead"

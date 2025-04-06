@@ -1,22 +1,22 @@
-import React, { useEffect,useState } from 'react';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-import Card from '../../components/Card';
-import Table from '../../components/custom/Table/Table';
-import { BaseTable } from '../../components/custom/Table/Tables.types';
-import Heading from '../../components/Heading';
-import SearchBar from '../../components/SearchBar';
-import API from '../../services/api';
-import { MgrColumns } from '../../utils/constants';
-import { title_headings } from '../../utils/headings';
-import { ManagersList } from './Manager.types';
+import Card from "../../components/Card";
+import Table from "../../components/custom/Table/Table";
+import { BaseTable } from "../../components/custom/Table/Tables.types";
+import Heading from "../../components/Heading";
+import SearchBar from "../../components/SearchBar";
+import API from "../../services/api";
+import { MgrColumns } from "../../config/constants";
+import { title_headings } from "../../config/headings";
+import { ManagersList } from "./Manager.types";
 
 interface Managers extends BaseTable {
   managers: ManagersList[];
 }
 
 function Manager(): React.ReactNode {
-  const [searchName, setName] = useState<string>('');
+  const [searchName, setName] = useState<string>("");
   const [mgrs, setMgrs] = useState<Managers>({
     count: 0,
     active: 0,
@@ -29,18 +29,18 @@ function Manager(): React.ReactNode {
   const getList = async () => {
     try {
       const { data, status } = await API.getManagers({
-        limit: '10',
+        limit: "10",
         offset: String(offset),
         searchName,
       });
       if (status !== 200) {
-        toast.error('Error while fetching the Leads');
+        toast.error("Error while fetching the Leads");
       } else {
         setMgrs(data);
       }
     } catch (err) {
       console.log(err);
-      toast.error('Error');
+      toast.error("Error");
     }
   };
 
@@ -62,7 +62,7 @@ function Manager(): React.ReactNode {
         <div className="text-right">
           <SearchBar
             onChange={(e) => setName(e.target.value)}
-            placeholder={'Search Managers'}
+            placeholder={"Search Managers"}
           />
         </div>
       </div>

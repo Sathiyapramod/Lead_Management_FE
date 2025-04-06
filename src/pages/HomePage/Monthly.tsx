@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import CustomChip from '../../components/custom/Chip/CustomChip';
-import formatAmt from '../../helpers/formatAmount';
-import { BasicStats } from './HomePage.types';
+import CustomChip from "../../components/custom/Chip/CustomChip";
+import formatAmt from "../../utils/formatAmount";
+import { BasicStats } from "./HomePage.types";
 
 function MonthlyOrders({ stats }: { stats: BasicStats }): React.ReactNode {
   return (
@@ -15,12 +15,12 @@ function MonthlyOrders({ stats }: { stats: BasicStats }): React.ReactNode {
       </div>
       <div className="flex flex-row max-lg:flex-col max-lg:gap-[15px] justify-between items-center">
         <CustomChip
-          content={'Completed'}
+          content={"Completed"}
           tag={true}
           count={formatAmt(stats.closed)}
         />
         <CustomChip
-          content={'Pending'}
+          content={"Pending"}
           tag={false}
           count={formatAmt(stats.pending)}
         />
